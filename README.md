@@ -56,7 +56,7 @@ AlgoShare Automation is a comprehensive blockchain-based automation platform des
 
 - **Runtime**: Node.js with Express.js
 - **Database**: MongoDB for user data and file metadata
-- **Authentication**: Liquid Auth + GoPlausible DID resolution
+- **Authentication**: Liquid Auth + Wallet
 - **File Processing**: Multi-format support with validation
 - **API Design**: RESTful APIs with comprehensive error handling
 
@@ -98,7 +98,7 @@ AlgoShare Automation is a comprehensive blockchain-based automation platform des
 
 ## 🔮 Future Development Roadmap
 
-### Phase 1: Zero-Knowledge Integration (Q2 2024)
+### Phase 1: Zero-Knowledge Integration (Q4 2025)
 
 **Privacy Enhancement with ZK Technology**
 
@@ -116,32 +116,6 @@ AlgoShare Automation is a comprehensive blockchain-based automation platform des
 - **Identity Verification**: Verify employee credentials without exposing personal data
 - **Audit Compliance**: Generate compliance reports without compromising privacy
 
-#### 🛠️ Technical Implementation
-
-```typescript
-// ZK-Payroll Proof Example
-const payrollProof = await generateZKProof({
-  privateInputs: {
-    employeeId: "EMP001",
-    baseSalary: 5000,
-    overtime: 200,
-    deductions: 500,
-  },
-  publicInputs: {
-    totalAmount: 4700,
-    timestamp: Date.now(),
-    companyId: "COMP123",
-  },
-});
-
-// Verify without revealing sensitive data
-const isValid = await verifyZKProof(payrollProof, {
-  totalAmount: 4700,
-  timestamp: Date.now(),
-  companyId: "COMP123",
-});
-```
-
 #### 🔒 Privacy-Preserving Analytics
 
 - **Aggregate Statistics**: Calculate company-wide metrics without individual data exposure
@@ -149,7 +123,7 @@ const isValid = await verifyZKProof(payrollProof, {
 - **Performance Metrics**: Track productivity without revealing personal information
 - **Cost Analysis**: Analyze expenses while protecting sensitive financial data
 
-### Phase 2: Advanced Privacy Features (Q3 2024)
+### Phase 2: Advanced Privacy Features (Q1 2026)
 
 **Enhanced Privacy & Compliance**
 
@@ -167,19 +141,6 @@ const isValid = await verifyZKProof(payrollProof, {
 - **Financial Reporting**: Automated compliance with local accounting standards
 - **Multi-Jurisdiction**: Support for various international regulations
 
-#### 🔐 Privacy-Preserving Machine Learning
-
-```typescript
-// Homomorphic Encryption Example
-const encryptedData = await homomorphicEncrypt({
-  employeeSalaries: [5000, 6000, 7000],
-  department: "Engineering",
-});
-
-// Compute average salary without decrypting
-const averageSalary = await homomorphicCompute(encryptedData, "average", { preservePrivacy: true });
-```
-
 #### 📊 Advanced Analytics with Privacy
 
 - **Federated Learning**: Train models across departments without data sharing
@@ -187,7 +148,7 @@ const averageSalary = await homomorphicCompute(encryptedData, "average", { prese
 - **Privacy-Preserving Clustering**: Group employees by performance without revealing individual scores
 - **Differential Privacy Reports**: Generate insights with mathematical privacy guarantees
 
-### Phase 3: Enterprise Integration (Q4 2024)
+### Phase 3: Enterprise Integration (Q2 2026)
 
 **Enterprise-Grade Features**
 
@@ -239,7 +200,7 @@ const payrollWorkflow = await createWorkflow({
 });
 ```
 
-### Phase 4: Global Expansion (Q1 2025)
+### Phase 4: Global Expansion (Q3 2026)
 
 **Scalability & International Features**
 
