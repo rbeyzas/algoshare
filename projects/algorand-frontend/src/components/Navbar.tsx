@@ -180,6 +180,16 @@ const Navbar: React.FC = () => {
               File Sharing
             </Link>
             <Link
+              to="/messaging"
+              className={`text-sm font-medium transition-colors duration-200 ${
+                location.pathname === '/messaging'
+                  ? `${isHomePage ? 'text-green-400 border-b-2 border-green-400' : 'text-green-600 border-b-2 border-green-600'} pb-1`
+                  : `${isHomePage ? 'text-gray-300 hover:text-green-400' : 'text-gray-700 hover:text-green-600'}`
+              }`}
+            >
+              Messaging
+            </Link>
+            <Link
               to="/liquid-auth"
               className={`text-sm font-medium transition-colors duration-200 ${
                 location.pathname === '/liquid-auth'
@@ -396,6 +406,16 @@ const Navbar: React.FC = () => {
             }`}
           >
             File Sharing
+          </Link>
+          <Link
+            to="/messaging"
+            className={`block px-3 py-2 text-base font-medium ${
+              location.pathname === '/messaging'
+                ? `${isHomePage ? 'text-green-400 bg-green-900/50' : 'text-green-600 bg-green-50'}`
+                : `${isHomePage ? 'text-gray-300 hover:text-green-400 hover:bg-gray-700' : 'text-gray-700 hover:text-green-600 hover:bg-gray-100'}`
+            }`}
+          >
+            Messaging
           </Link>
           <Link
             to="/liquid-auth"

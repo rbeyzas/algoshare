@@ -1,189 +1,266 @@
-#!/usr/bin/env node
-
-/**
- * Real WebSocket Signaling Server
- * Bu server gerçek peer-to-peer bağlantıları kurar
- */
-
 const WebSocket = require("ws");
 const http = require("http");
+const url = require("url");
 
-const PORT = process.env.PORT || 8080;
-const server = http.createServer();
-const wss = new WebSocket.Server({ server });
+class SignalingServer {
+  constructor(port = 8080) {
+    this.port = port;
+    this.connections = new Map(); // address -> WebSocket
+    this.server = null;
+    this.wss = null;
+  }
 
-// Client storage - gerçek uygulamada database kullanılır
-const clients = new Map();
-const rooms = new Map();
+  start() {
+    // Create HTTP server
+    this.server = http.createServer();
 
-console.log("🚀 Starting Real Signaling Server...");
+    // Create WebSocket server
+    this.wss = new WebSocket.Server({ server: this.server });
 
-wss.on("connection", (ws, req) => {
-  const clientId = `client_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-  console.log(`📱 New client connected: ${clientId}`);
+    this.wss.on("connection", (ws, req) => {
+      console.log("New WebSocket connection established");
 
-  // Store client
-  clients.set(clientId, ws);
+      // Parse query parameters
+      const parsedUrl = url.parse(req.url, true);
+      const address = parsedUrl.query.address;
 
-  // Send welcome message
-  ws.send(
-    JSON.stringify({
-      type: "connection",
-      clientId,
-      message: "Connected to signaling server",
-      timestamp: Date.now(),
-    })
-  );
+      if (address) {
+        this.connections.set(address, ws);
+        console.log(`User registered: ${address}`);
 
-  ws.on("message", (data) => {
-    try {
-      const message = JSON.parse(data);
-      console.log(`📨 Message from ${clientId}:`, message.type);
-
-      switch (message.type) {
-        case "register":
-          // Client registers with wallet address
-          const address = message.data?.address || message.address;
-          if (address) {
-            clients.set(address, ws);
-            clients.delete(clientId);
-            console.log(`👤 Client registered as: ${address}`);
-          } else {
-            console.log(`❌ Registration failed: no address provided`);
-          }
-          break;
-
-        case "offer":
-        case "answer":
-        case "ice-candidate":
-        case "file-request":
-        case "file-response":
-          // Route message to target client
-          const targetClient = clients.get(message.to);
-          if (targetClient && targetClient.readyState === WebSocket.OPEN) {
-            targetClient.send(JSON.stringify(message));
-            console.log(`📤 Routed ${message.type} from ${message.from} to ${message.to}`);
-          } else {
-            console.log(`❌ Target client ${message.to} not found or disconnected`);
-            // Send error back to sender
-            ws.send(
-              JSON.stringify({
-                type: "error",
-                message: `Target client ${message.to} not available`,
-                originalMessage: message,
-              })
-            );
-          }
-          break;
-
-        case "ping":
-          ws.send(
-            JSON.stringify({
-              type: "pong",
-              timestamp: Date.now(),
-            })
-          );
-          break;
-
-        default:
-          console.log(`❓ Unknown message type: ${message.type}`);
+        // Send registration confirmation
+        ws.send(
+          JSON.stringify({
+            type: "registered",
+            address: address,
+            message: "Successfully registered for signaling",
+          })
+        );
       }
-    } catch (error) {
-      console.error("❌ Error handling message:", error);
-      ws.send(
-        JSON.stringify({
-          type: "error",
-          message: "Invalid message format",
-          error: error.message,
-        })
-      );
-    }
-  });
 
-  ws.on("close", (code, reason) => {
-    console.log(`👋 Client disconnected: ${clientId} (code: ${code})`);
+      ws.on("message", (data) => {
+        try {
+          const message = JSON.parse(data.toString());
+          this.handleMessage(ws, message);
+        } catch (error) {
+          console.error("Failed to parse WebSocket message:", error);
+          ws.send(JSON.stringify({ type: "error", message: "Invalid message format" }));
+        }
+      });
 
-    // Remove client from all storage
-    for (const [address, client] of clients.entries()) {
-      if (client === ws) {
-        clients.delete(address);
-        console.log(`🗑️ Removed client: ${address}`);
+      ws.on("close", () => {
+        console.log("WebSocket connection closed");
+        // Remove from connections
+        for (const [addr, connection] of this.connections.entries()) {
+          if (connection === ws) {
+            this.connections.delete(addr);
+            console.log(`User disconnected: ${addr}`);
+            break;
+          }
+        }
+      });
+
+      ws.on("error", (error) => {
+        console.error("WebSocket error:", error);
+      });
+    });
+
+    this.server.listen(this.port, () => {
+      console.log(`🚀 Signaling Server running on port ${this.port}`);
+      console.log(`📡 WebSocket endpoint: ws://localhost:${this.port}`);
+    });
+  }
+
+  handleMessage(ws, message) {
+    switch (message.type) {
+      case "register":
+        this.handleRegister(ws, message);
         break;
-      }
+      case "offer":
+        this.handleOffer(ws, message);
+        break;
+      case "answer":
+        this.handleAnswer(ws, message);
+        break;
+      case "ice-candidate":
+        this.handleIceCandidate(ws, message);
+        break;
+      case "message":
+        this.handleMessageForward(ws, message);
+        break;
+      case "contact-request":
+        this.handleContactRequest(ws, message);
+        break;
+      default:
+        ws.send(JSON.stringify({ type: "error", message: "Unknown message type" }));
     }
-  });
+  }
 
-  ws.on("error", (error) => {
-    console.error(`❌ WebSocket error for ${clientId}:`, error);
-  });
-});
+  handleRegister(ws, message) {
+    const { address } = message;
+    if (!address) {
+      ws.send(JSON.stringify({ type: "error", message: "Address required for registration" }));
+      return;
+    }
 
-// Health check endpoint
-server.on("request", (req, res) => {
-  if (req.url === "/health") {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(
+    this.connections.set(address, ws);
+    console.log(`User registered: ${address}`);
+
+    ws.send(
       JSON.stringify({
-        status: "healthy",
-        connectedClients: clients.size,
-        uptime: process.uptime(),
-        timestamp: new Date().toISOString(),
+        type: "registered",
+        address: address,
+        message: "Successfully registered for signaling",
       })
     );
-  } else {
-    res.writeHead(404);
-    res.end("Not found");
   }
-});
 
-server.listen(PORT, () => {
-  console.log(`🎯 Signaling Server running on ws://localhost:${PORT}`);
-  console.log(`🏥 Health check: http://localhost:${PORT}/health`);
-  console.log(`📊 Connected clients: ${clients.size}`);
-});
+  handleOffer(ws, message) {
+    const { to, offer, encryptionKey } = message;
+    const targetConnection = this.connections.get(to);
 
-// Graceful shutdown
-process.on("SIGINT", () => {
-  console.log("\n🛑 Shutting down signaling server...");
+    if (!targetConnection) {
+      ws.send(JSON.stringify({ type: "error", message: "Target user not found" }));
+      return;
+    }
 
-  // Close all client connections
-  for (const [address, client] of clients.entries()) {
-    if (client.readyState === WebSocket.OPEN) {
-      client.close(1000, "Server shutting down");
+    // Forward offer to target user with encryption key
+    targetConnection.send(
+      JSON.stringify({
+        type: "offer",
+        from: this.getAddressByConnection(ws),
+        offer: offer,
+        encryptionKey: encryptionKey,
+      })
+    );
+  }
+
+  handleAnswer(ws, message) {
+    const { to, answer } = message;
+    const targetConnection = this.connections.get(to);
+
+    if (!targetConnection) {
+      ws.send(JSON.stringify({ type: "error", message: "Target user not found" }));
+      return;
+    }
+
+    // Forward answer to target user
+    targetConnection.send(
+      JSON.stringify({
+        type: "answer",
+        from: this.getAddressByConnection(ws),
+        answer: answer,
+      })
+    );
+  }
+
+  handleIceCandidate(ws, message) {
+    const { to, candidate } = message;
+    const targetConnection = this.connections.get(to);
+
+    if (!targetConnection) {
+      ws.send(JSON.stringify({ type: "error", message: "Target user not found" }));
+      return;
+    }
+
+    // Forward ICE candidate to target user
+    targetConnection.send(
+      JSON.stringify({
+        type: "ice-candidate",
+        from: this.getAddressByConnection(ws),
+        candidate: candidate,
+      })
+    );
+  }
+
+  handleMessageForward(ws, message) {
+    const { to, encrypted, iv, hash } = message;
+    const targetConnection = this.connections.get(to);
+
+    if (!targetConnection) {
+      ws.send(JSON.stringify({ type: "error", message: "Target user not found" }));
+      return;
+    }
+
+    // Forward encrypted message to target user
+    targetConnection.send(
+      JSON.stringify({
+        type: "message",
+        from: this.getAddressByConnection(ws),
+        encrypted: encrypted,
+        iv: iv,
+        hash: hash,
+      })
+    );
+  }
+
+  handleContactRequest(ws, message) {
+    const { to, from } = message;
+    const targetConnection = this.connections.get(to);
+
+    if (!targetConnection) {
+      ws.send(JSON.stringify({ type: "error", message: "Target user not found" }));
+      return;
+    }
+
+    // Forward contact request
+    targetConnection.send(
+      JSON.stringify({
+        type: "contact-request",
+        from: from || this.getAddressByConnection(ws),
+      })
+    );
+  }
+
+  getAddressByConnection(ws) {
+    for (const [address, connection] of this.connections.entries()) {
+      if (connection === ws) {
+        return address;
+      }
+    }
+    return null;
+  }
+
+  // Get online users
+  getOnlineUsers() {
+    return Array.from(this.connections.keys()).map((address) => ({
+      address: address,
+      isOnline: true,
+      lastSeen: Date.now(),
+    }));
+  }
+
+  // Broadcast message to all connected users
+  broadcast(message) {
+    const messageStr = JSON.stringify(message);
+    this.connections.forEach((ws) => {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(messageStr);
+      }
+    });
+  }
+
+  stop() {
+    if (this.wss) {
+      this.wss.close();
+    }
+    if (this.server) {
+      this.server.close();
     }
   }
+}
 
-  server.close(() => {
-    console.log("✅ Server closed gracefully");
+// Start signaling server if run directly
+if (require.main === module) {
+  const signalingServer = new SignalingServer(8080);
+  signalingServer.start();
+
+  // Graceful shutdown
+  process.on("SIGINT", () => {
+    console.log("\n🛑 Shutting down signaling server...");
+    signalingServer.stop();
     process.exit(0);
   });
-});
+}
 
-// Keep alive ping every 30 seconds
-setInterval(() => {
-  const deadClients = [];
-  for (const [address, client] of clients.entries()) {
-    if (client.readyState !== WebSocket.OPEN) {
-      deadClients.push(address);
-    } else {
-      // Send ping to keep connection alive
-      client.ping();
-    }
-  }
-
-  // Clean up dead clients
-  deadClients.forEach((address) => {
-    clients.delete(address);
-    console.log(`🧹 Cleaned up dead client: ${address}`);
-  });
-
-  if (clients.size > 0) {
-    console.log(`💓 Heartbeat: ${clients.size} active clients`);
-  }
-}, 30000);
-
-console.log("🔧 Server configuration:");
-console.log(`   - Port: ${PORT}`);
-console.log(`   - Max connections: Unlimited`);
-console.log(`   - Heartbeat interval: 30s`);
-console.log(`   - Auto cleanup: Enabled`);
+module.exports = SignalingServer;

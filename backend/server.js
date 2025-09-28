@@ -6,6 +6,7 @@ const axios = require("axios");
 const crypto = require("crypto");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
+const MessagingService = require("./messaging");
 require("dotenv").config();
 
 const app = express();
@@ -17,6 +18,10 @@ const io = new Server(server, {
   },
 });
 const PORT = process.env.PORT || 3001;
+
+// Initialize messaging service
+const messagingService = new MessagingService();
+const messagingServer = messagingService.initialize(app);
 
 // Middleware
 app.use(helmet());
@@ -954,6 +959,7 @@ server.listen(PORT, () => {
   console.log(`🔗 Contract: ${CONTRACT_CONFIG.appId}`);
   console.log(`🌐 Health check: http://localhost:${PORT}/health`);
   console.log(`🔌 Socket.io server running on port ${PORT}`);
+  console.log(`💬 WebRTC Messaging service running on port ${PORT}`);
 });
 
 module.exports = app;

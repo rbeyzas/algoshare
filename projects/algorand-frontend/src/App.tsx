@@ -7,6 +7,7 @@ import ConnectWalletPage from './pages/ConnectWalletPage'
 import PayrollPage from './pages/PayrollPage'
 import LiquidAuthPage from './pages/LiquidAuthPage'
 import FileSharingPage from './pages/FileSharingPage'
+import MessagingPage from './pages/MessagingPage'
 import Home from './Home'
 import { getAlgodConfigFromViteEnvironment, getKmdConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 
@@ -72,6 +73,7 @@ export default function App() {
               <Route path="/payroll" element={<PayrollPage />} />
               <Route path="/liquid-auth" element={<LiquidAuthPage />} />
               <Route path="/file-sharing" element={<FileSharingPage />} />
+              <Route path="/messaging" element={<MessagingPage />} />
               <Route path="/analytics" element={<Home />} />
             </Routes>
           </div>

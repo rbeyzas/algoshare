@@ -1,0 +1,35 @@
+{
+  "name": "payroll-cross-border-microlending",
+  "version": "1.0.0",
+  "description": "Cross-border microlending platform with WebRTC messaging",
+  "main": "index.js",
+  "scripts": {
+    "start": "node signaling-server.js",
+    "dev": "nodemon signaling-server.js",
+    "backend": "cd backend && npm start",
+    "frontend": "cd projects/algorand-frontend && npm run dev",
+    "contracts": "cd projects/algorand-contracts && npm run dev",
+    "build": "cd projects/algorand-frontend && npm run build",
+    "test": "cd projects/algorand-contracts && npm test",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:mcp": "docker-compose -f docker-compose.mcp-testnet.yml up -d",
+    "docker:mcp:down": "docker-compose -f docker-compose.mcp-testnet.yml down"
+  },
+  "keywords": [
+    "algorand",
+    "microlending",
+    "webrtc",
+    "messaging",
+    "blockchain",
+    "defi"
+  ],
+  "author": "Microlending Team",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
