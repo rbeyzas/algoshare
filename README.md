@@ -121,6 +121,7 @@ AlgoShare Automation is a comprehensive blockchain-based automation platform des
 - **ZK-Payroll Proofs**: Generate proofs for salary calculations without revealing amounts
 - **Verification**: Validate transactions without exposing sensitive data
 - **Privacy-Preserving**: Maintain audit trails while protecting employee privacy
+
 #### 🔒 Privacy-Preserving Analytics
 
 - **Aggregate Statistics**: Calculate company-wide metrics without individual data exposure
@@ -151,6 +152,7 @@ AlgoShare Automation is a comprehensive blockchain-based automation platform des
 - **Homomorphic Encryption**: Compute on encrypted data without decryption
 - **Federated Learning**: Train models across departments without data sharing
 - **Secure Analytics**: Generate insights while protecting individual privacy
+
 #### 📊 Advanced Analytics with Privacy
 
 - **Federated Learning**: Train models across departments without data sharing
