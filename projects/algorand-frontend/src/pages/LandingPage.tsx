@@ -36,6 +36,7 @@ const LandingPage: React.FC = () => {
     { label: 'Active Employees', value: '250+', icon: '👥' },
     { label: 'Secure Transfers', value: '100%', icon: '🔒' },
     { label: 'Blockchain Network', value: 'Algorand', icon: '⚡' },
+    { label: 'Transaction Speed', value: '4.5s', icon: '🚀' },
   ]
 
   const techStack = [

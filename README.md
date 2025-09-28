@@ -118,29 +118,9 @@ AlgoShare Automation is a comprehensive blockchain-based automation platform des
 
 #### 🛠️ Technical Implementation
 
-```typescript
-// ZK-Payroll Proof Example
-const payrollProof = await generateZKProof({
-  privateInputs: {
-    employeeId: "EMP001",
-    baseSalary: 5000,
-    overtime: 200,
-    deductions: 500,
-  },
-  publicInputs: {
-    totalAmount: 4700,
-    timestamp: Date.now(),
-    companyId: "COMP123",
-  },
-});
-
-// Verify without revealing sensitive data
-const isValid = await verifyZKProof(payrollProof, {
-  totalAmount: 4700,
-  timestamp: Date.now(),
-  companyId: "COMP123",
-});
-```
+- **ZK-Payroll Proofs**: Generate proofs for salary calculations without revealing amounts
+- **Verification**: Validate transactions without exposing sensitive data
+- **Privacy-Preserving**: Maintain audit trails while protecting employee privacy
 
 #### 🔒 Privacy-Preserving Analytics
 
@@ -169,16 +149,9 @@ const isValid = await verifyZKProof(payrollProof, {
 
 #### 🔐 Privacy-Preserving Machine Learning
 
-```typescript
-// Homomorphic Encryption Example
-const encryptedData = await homomorphicEncrypt({
-  employeeSalaries: [5000, 6000, 7000],
-  department: "Engineering",
-});
-
-// Compute average salary without decrypting
-const averageSalary = await homomorphicCompute(encryptedData, "average", { preservePrivacy: true });
-```
+- **Homomorphic Encryption**: Compute on encrypted data without decryption
+- **Federated Learning**: Train models across departments without data sharing
+- **Secure Analytics**: Generate insights while protecting individual privacy
 
 #### 📊 Advanced Analytics with Privacy
 
@@ -214,30 +187,10 @@ const averageSalary = await homomorphicCompute(encryptedData, "average", { prese
 
 #### ⚙️ Custom Workflow Engine
 
-```typescript
-// Custom Workflow Example
-const payrollWorkflow = await createWorkflow({
-  name: "Monthly Payroll Process",
-  steps: [
-    {
-      type: "approval",
-      approver: "HR Manager",
-      conditions: ["salary > 10000"],
-    },
-    {
-      type: "zk_proof",
-      operation: "generate_payroll_proof",
-      privacy: "confidential",
-    },
-    {
-      type: "blockchain_transaction",
-      contract: "PayrollApp",
-      method: "processPayroll",
-    },
-  ],
-  triggers: ["monthly", "manual"],
-});
-```
+- **Automated Workflows**: Create custom business process automation
+- **Approval Chains**: Multi-level approval systems with conditions
+- **ZK Integration**: Privacy-preserving workflow execution
+- **Blockchain Integration**: Automated smart contract execution
 
 ### Phase 4: Global Expansion (Q1 2025)
 
@@ -259,19 +212,10 @@ const payrollWorkflow = await createWorkflow({
 
 #### 🚀 Performance & Scalability
 
-```typescript
-// Global Performance Optimization
-const globalConfig = {
-  regions: {
-    "us-east": { latency: "50ms", throughput: "10k TPS" },
-    "eu-west": { latency: "75ms", throughput: "8k TPS" },
-    "asia-pacific": { latency: "100ms", throughput: "12k TPS" },
-  },
-  loadBalancing: "round-robin",
-  caching: "redis-cluster",
-  cdn: "cloudflare-global",
-};
-```
+- **Global Regions**: Multi-region deployment (US, EU, Asia-Pacific)
+- **Load Balancing**: Distributed request handling across regions
+- **Caching**: Redis-based performance optimization
+- **CDN Integration**: Global content delivery network
 
 #### 📊 Global Analytics Dashboard
 
@@ -363,22 +307,18 @@ Mainnet (Future):
 
 **AlgoShare Automation** - Building the future of enterprise blockchain automation with privacy, security, and transparency at its core.
 
-## 🚀 Quick Start
+## 🚀 Quick Start & Development
 
 ### Prerequisites
 
-- Node.js 18+
-- Docker
-- AlgoKit CLI
+- Node.js 18+, Docker, AlgoKit CLI
 
-### Installation
+### Installation & Setup
 
 ```bash
-# Clone the repository
+# Clone and install
 git clone https://github.com/your-username/algoshare-automation.git
 cd algoshare-automation
-
-# Install dependencies
 npm install
 
 # Start development environment
@@ -386,114 +326,65 @@ docker-compose up -d
 npm run dev
 ```
 
-### Smart Contract Deployment
+### Development Commands
 
 ```bash
+# Frontend
+cd projects/algorand-frontend && npm run dev
+
+# Backend
+cd backend && npm start
+
+# Smart Contracts
 cd projects/algorand-contracts
 algokit project bootstrap all
 algokit project run build
 algokit project run test
 ```
 
-## 📁 Project Structure
+### Project Structure
 
 ```
 ├── projects/
-│   ├── algorand-frontend/     # React frontend application
+│   ├── algorand-frontend/     # React frontend
 │   └── algorand-contracts/    # Smart contracts (Python)
 ├── backend/                   # Node.js API server
-├── docker-compose.yml         # Development environment
-└── README.md                  # This file
+└── docker-compose.yml         # Development environment
 ```
 
-## 🛠️ Development
+## 📋 Smart Contracts & Deployment
 
-### Frontend Development
+### Contract Functions
+
+**PayrollApp**: `addEmployee()`, `updateSalary()`, `processPayroll()`, `getEmployee()`  
+**FileSharingApp**: `createFileRequest()`, `approveAndPay()`, `confirmReceipt()`, `releasePayment()`
+
+### Deployment Status
+
+- **Deployed**: PayrollApp, FileSharingApp (746228510), MessagingApp
+- **Planned**: AnalyticsApp
+- **Network**: Algorand Testnet → Mainnet (Future)
+
+### Testing & Deployment
 
 ```bash
-cd projects/algorand-frontend
-npm install
-npm run dev
+# Smart contract tests
+cd projects/algorand-contracts && algokit project run test
+
+# Frontend tests
+cd projects/algorand-frontend && npm test
+
+# Integration tests & Start services
+node test-mvp.js
+docker-compose up -d
 ```
-
-### Smart Contract Development
-
-```bash
-cd projects/algorand-contracts
-algokit project bootstrap all
-algokit project run build
-algokit project run test
-```
-
-### Backend API
-
-```bash
-cd backend
-npm install
-npm start
-```
-
-## 📋 Smart Contract Functions
-
-### PayrollApp Functions
-
-- `addEmployee(employeeId, name, address, salary, position)` - Add new employee
-- `updateSalary(employeeId, newSalary)` - Update employee salary
-- `processPayroll(employeeId, amount)` - Process salary payment
-- `getEmployee(employeeId)` - Get employee information
-
-### FileSharingApp Functions
-
-- `createFileRequest(fileId, recipient, fileHash, fileSize, accessFee)` - Create file request
-- `approveAndPay(fileId)` - Approve and pay for file
-- `confirmReceipt(fileId, fileHash)` - Confirm file receipt
-- `releasePayment(fileId, recipient)` - Release payment
-
-## 🔗 Smart Contract Deployment
-
-### Current Deployments
-
-- **FileSharingApp**: ✅ Deployed
-- **PayrollApp**: ✅ Deployed
-- **MessagingApp**: ✅ Deployed
-- **AnalyticsApp**: 📋 Planned
 
 ### Network Configuration
 
 ```bash
-# Testnet
 VITE_ALGOD_SERVER=https://testnet-api.algonode.cloud
 VITE_INDEXER_SERVER=https://testnet-idx.algonode.cloud
 VITE_ALGOD_NETWORK=testnet
-```
-
-## 🧪 Testing
-
-### Run Tests
-
-```bash
-# Smart contract tests
-cd projects/algorand-contracts
-algokit project run test
-
-# Frontend tests
-cd projects/algorand-frontend
-npm test
-
-# Integration tests
-node test-mvp.js
-```
-
-## 🚀 Deployment
-
-### Start Development Environment
-
-```bash
-# Start all services
-docker-compose up -d
-
-# Run integration tests
-node test-mvp.js
 ```
 
 **Built with ❤️ on Algorand Blockchain**
