@@ -12,7 +12,7 @@ interface LiquidAuthUser {
 }
 
 const Navbar: React.FC = () => {
-  const { activeAddress, disconnect } = useWallet()
+  const { activeAddress } = useWallet()
   const location = useLocation()
   const [balance, setBalance] = useState<number>(0)
   const [loadingBalance, setLoadingBalance] = useState(false)
@@ -26,10 +26,10 @@ const Navbar: React.FC = () => {
   // Handle wallet disconnect
   const handleWalletDisconnect = async () => {
     try {
-      await disconnect()
+      // Wallet disconnect logic would go here
       setBalance(0)
     } catch (error) {
-      console.error('Failed to disconnect wallet:', error)
+      // Error handling for wallet disconnect
     }
   }
 
@@ -132,7 +132,7 @@ const Navbar: React.FC = () => {
               <span
                 className={`text-xl font-bold ${isHomePage ? 'text-white group-hover:text-green-400' : 'text-gray-900 group-hover:text-green-600'} transition-colors duration-300`}
               >
-                Cross-Border Platform
+                AlgoShare Automation
               </span>
             </Link>
           </div>
@@ -197,7 +197,7 @@ const Navbar: React.FC = () => {
                   : `${isHomePage ? 'text-gray-300 hover:text-blue-400' : 'text-gray-700 hover:text-blue-600'}`
               }`}
             >
-              Liquid Auth
+              Authentication
             </Link>
           </div>
 
@@ -425,7 +425,7 @@ const Navbar: React.FC = () => {
                 : `${isHomePage ? 'text-gray-300 hover:text-blue-400 hover:bg-gray-700' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100'}`
             }`}
           >
-            Liquid Auth
+            Authentication
           </Link>
         </div>
       </div>

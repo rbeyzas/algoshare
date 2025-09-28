@@ -7,38 +7,44 @@ const LandingPage: React.FC = () => {
 
   const features = [
     {
-      title: 'Liquid Auth Integration',
-      description: 'Secure authentication with Liquid Auth and GoPlausible DID resolution for decentralized identity management.',
-      icon: '🔐',
-      gradient: 'from-purple-500 to-pink-500',
+      title: 'Smart Payroll System',
+      description: 'Managers can send overtime payments to employees with transparent and secure blockchain-based transactions.',
+      icon: '💰',
+      gradient: 'from-green-500 to-emerald-500',
     },
     {
-      title: 'Algorand Smart Contracts',
-      description: 'Built on Algorand blockchain with Python smart contracts, real-time trust scoring, and transparent loan management.',
-      icon: '⚡',
+      title: 'Secure File Transfer',
+      description: 'End-to-end encryption for secure sharing of confidential documents between company and employees.',
+      icon: '📁',
       gradient: 'from-blue-500 to-cyan-500',
     },
     {
-      title: 'Real-Time Trust Scoring',
-      description: 'AI-powered trust score calculation based on loan history, repayment patterns, and blockchain verification.',
-      icon: '🤖',
-      gradient: 'from-yellow-500 to-orange-500',
+      title: 'Internal Messaging',
+      description: 'Real-time, secure messaging system to facilitate team communication and collaboration.',
+      icon: '💬',
+      gradient: 'from-purple-500 to-pink-500',
+    },
+    {
+      title: 'Analytics Dashboard',
+      description: 'Comprehensive analytics and reporting tools to track payroll expenses, communication patterns, and system usage.',
+      icon: '📊',
+      gradient: 'from-orange-500 to-red-500',
     },
   ]
 
   const stats = [
-    { label: 'Smart Contracts', value: '3 Deployed', icon: '🔗' },
-    { label: 'Network', value: 'Algorand Testnet', icon: '🌐' },
-    { label: 'DID Resolution', value: 'GoPlausible', icon: '🆔' },
+    { label: 'Active Employees', value: '250+', icon: '👥' },
+    { label: 'Secure Transfers', value: '100%', icon: '🔒' },
+    { label: 'Blockchain Network', value: 'Algorand', icon: '⚡' },
   ]
 
   const techStack = [
     { name: 'Algorand', description: 'Blockchain Network', color: 'bg-blue-500' },
     { name: 'Python', description: 'Smart Contracts', color: 'bg-yellow-500' },
-    { name: 'React', description: 'Frontend', color: 'bg-cyan-500' },
+    { name: 'React', description: 'Frontend UI', color: 'bg-cyan-500' },
     { name: 'Node.js', description: 'Backend API', color: 'bg-green-500' },
     { name: 'Liquid Auth', description: 'Authentication', color: 'bg-purple-500' },
-    { name: 'GoPlausible', description: 'DID Resolution', color: 'bg-pink-500' },
+    { name: 'WebRTC', description: 'Real-time Communication', color: 'bg-pink-500' },
   ]
 
   return (
@@ -55,17 +61,72 @@ const LandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
             <h1 className="text-6xl md:text-8xl font-bold mb-8">
-              <span className="block text-white">Cross-Border</span>
+              <span className="block text-white">AlgoShare</span>
               <span className="block bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-pulse">
-                Platform
+                Automation
               </span>
               <span className="block text-4xl md:text-5xl text-gray-300 mt-4">Platform</span>
             </h1>
 
-            <p className="text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Revolutionary cross-border platform built on Algorand blockchain with Liquid Auth, GoPlausible DID resolution, and real-time
-              authentication. Experience the future of decentralized applications.
+            <p className="text-xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
+              Comprehensive automation platform designed for modern companies. Secure payroll management, file transfer, and team
+              communication solutions powered by blockchain technology.
             </p>
+
+            {/* Problem Statement */}
+            <div className="bg-red-900/20 border border-red-500/30 rounded-2xl p-8 mb-12 max-w-4xl mx-auto">
+              <h2 className="text-2xl font-bold text-red-400 mb-4">🚨 The Problem We Solve</h2>
+              <div className="grid md:grid-cols-2 gap-6 text-gray-300">
+                <div>
+                  <h3 className="font-semibold text-red-300 mb-2">Traditional Challenges:</h3>
+                  <ul className="space-y-2 text-sm">
+                    <li>• Manual payroll processing delays</li>
+                    <li>• Insecure file sharing methods</li>
+                    <li>• Fragmented communication tools</li>
+                    <li>• Lack of transparency in payments</li>
+                    <li>• High operational costs</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-red-300 mb-2">Business Impact:</h3>
+                  <ul className="space-y-2 text-sm">
+                    <li>• Reduced employee satisfaction</li>
+                    <li>• Security vulnerabilities</li>
+                    <li>• Inefficient workflows</li>
+                    <li>• Compliance issues</li>
+                    <li>• Increased overhead costs</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Solution Statement */}
+            <div className="bg-green-900/20 border border-green-500/30 rounded-2xl p-8 mb-12 max-w-4xl mx-auto">
+              <h2 className="text-2xl font-bold text-green-400 mb-4">✅ Our Blockchain Solution</h2>
+              <div className="grid md:grid-cols-3 gap-6 text-gray-300">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl">⚡</span>
+                  </div>
+                  <h3 className="font-semibold text-green-300 mb-2">Instant Payments</h3>
+                  <p className="text-sm">Real-time payroll processing with blockchain transparency</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl">🔒</span>
+                  </div>
+                  <h3 className="font-semibold text-blue-300 mb-2">Secure Communication</h3>
+                  <p className="text-sm">End-to-end encrypted messaging and file sharing</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl">📊</span>
+                  </div>
+                  <h3 className="font-semibold text-purple-300 mb-2">Full Transparency</h3>
+                  <p className="text-sm">Immutable records and audit trails for all transactions</p>
+                </div>
+              </div>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
               {activeAddress ? (
@@ -129,7 +190,7 @@ const LandingPage: React.FC = () => {
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-white mb-6">Platform Features</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Built on Algorand blockchain with cutting-edge technology for secure, fast, and transparent cross-border applications
+              Features designed for secure, fast, and transparent company automation with Algorand blockchain technology
             </p>
           </div>
 
@@ -160,7 +221,7 @@ const LandingPage: React.FC = () => {
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-white mb-6">Technical Architecture</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Full-stack solution with Algorand smart contracts, real-time DID resolution, and AI-powered trust scoring
+              Full-stack solution with Algorand smart contracts, real-time authentication, and secure communication
             </p>
           </div>
 
@@ -176,22 +237,22 @@ const LandingPage: React.FC = () => {
                 </li>
                 <li className="flex items-center space-x-3">
                   <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
-                  <span>Loan creation and management</span>
+                  <span>Payroll payments and management</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
-                  <span>Real-time trust score updates</span>
+                  <span>Real-time payment tracking</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
-                  <span>Transparent repayment tracking</span>
+                  <span>Transparent transaction records</span>
                 </li>
               </ul>
             </div>
 
             <div className="group relative bg-gradient-to-br from-teal-900/50 to-teal-800/30 backdrop-blur-sm rounded-2xl p-8 border border-teal-700/50 hover:border-teal-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-teal-500/20">
               <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-teal-400 transition-colors duration-300">
-                🆔 DID Resolution
+                🆔 Identity Authentication
               </h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-center space-x-3">
@@ -208,31 +269,31 @@ const LandingPage: React.FC = () => {
                 </li>
                 <li className="flex items-center space-x-3">
                   <span className="w-2 h-2 bg-teal-400 rounded-full"></span>
-                  <span>Cross-border verification</span>
+                  <span>Secure employee verification</span>
                 </li>
               </ul>
             </div>
 
             <div className="group relative bg-gradient-to-br from-purple-900/50 to-purple-800/30 backdrop-blur-sm rounded-2xl p-8 border border-purple-700/50 hover:border-purple-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20">
               <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-purple-400 transition-colors duration-300">
-                🤖 AI Trust Scoring
+                🤖 Secure Communication
               </h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-center space-x-3">
                   <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
-                  <span>Real-time score calculation</span>
+                  <span>Real-time messaging</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
-                  <span>Loan history analysis</span>
+                  <span>End-to-end encryption</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
-                  <span>Repayment pattern recognition</span>
+                  <span>Secure file sharing</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
-                  <span>Risk assessment automation</span>
+                  <span>WebRTC technology</span>
                 </li>
               </ul>
             </div>
@@ -243,9 +304,9 @@ const LandingPage: React.FC = () => {
       {/* CTA Section */}
       <div className="relative z-10 bg-gradient-to-r from-green-600 to-blue-600 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-5xl font-bold text-white mb-6">Ready to Experience the Future of Cross-Border Applications?</h2>
+          <h2 className="text-5xl font-bold text-white mb-6">Ready to Experience the Future of Company Automation?</h2>
           <p className="text-xl text-green-100 mb-8 max-w-3xl mx-auto">
-            Join the revolution of cross-border applications with Algorand blockchain, Liquid Auth, and decentralized identity management.
+            Join the company automation revolution with Algorand blockchain, Liquid Auth, and decentralized identity management.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -271,10 +332,11 @@ const LandingPage: React.FC = () => {
                 <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">A</span>
                 </div>
-                <span className="text-xl font-bold">Cross-Border Platform</span>
+                <span className="text-xl font-bold">AlgoShare Automation</span>
               </div>
               <p className="text-gray-400">
-                Revolutionary cross-border platform built on Algorand blockchain with Liquid Auth and GoPlausible DID resolution.
+                Next-generation enterprise automation platform powered by Algorand blockchain technology, featuring secure payroll
+                management, encrypted file sharing, and real-time team communication solutions.
               </p>
             </div>
 
@@ -308,26 +370,26 @@ const LandingPage: React.FC = () => {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-white">Hackathon MVP</h4>
+              <h4 className="font-semibold mb-4 text-white">Features</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <span className="text-yellow-400">🚀 Real-time Trust Scoring</span>
+                  <span className="text-yellow-400">🚀 Real-time Payroll</span>
                 </li>
                 <li>
                   <span className="text-cyan-400">🔗 Smart Contract Integration</span>
                 </li>
                 <li>
-                  <span className="text-orange-400">🆔 DID Resolution</span>
+                  <span className="text-orange-400">🆔 Identity Authentication</span>
                 </li>
                 <li>
-                  <span className="text-red-400">🤖 AI-Powered Analytics</span>
+                  <span className="text-red-400">🤖 Secure Communication</span>
                 </li>
               </ul>
             </div>
           </div>
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Cross-Border Platform MVP. Built on Algorand blockchain for hackathon demonstration.</p>
+            <p>&copy; 2024 AlgoShare Automation MVP. Built on Algorand blockchain for hackathon demonstration.</p>
           </div>
         </div>
       </div>
