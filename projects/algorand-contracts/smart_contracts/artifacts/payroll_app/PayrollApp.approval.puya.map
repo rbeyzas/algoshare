@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "/Users/beyzasarikaya/Desktop/algoshare/algoshare/projects/algorand-contracts/smart_contracts/payroll_app/contract.algo.ts"
+    "/Users/beyzasarikaya/Desktop/algoshare/payroll-cross-border-microlending/projects/algorand-contracts/smart_contracts/payroll_app/contract.algo.ts"
   ],
   "mappings": ";;;;AAEA;;AAAA;;;AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;AAAA;;;;;;;;;;;;;;;;;;;;AAAA;;;AAwEE;;AAAA;AAAA;AAAA;;AAAA;AAAA;;AAPA;;AAAA;AAAA;AAAA;;AAAA;AAAA;;AARA;;AAAA;AAAA;AAAA;;AAAA;AAAA;;;;;;;;;;;;;;;;;AAAA;AAAA;;AATA;;AAAA;AAAA;AAAA;;AAAA;AAAA;;AATA;;AAAA;AAAA;AAAA;;AAAA;AAAA;;AAPA;;AAAA;AAAA;AAAA;;AAAA;AAAA;;AARA;;AAAA;AAAA;AAAA;;AAAA;AAAA;;AARA;;AAAA;AAAA;AAAA;;AAAA;AAAA;;AATA;;AAAA;AAAA;AAAA;;AAAA;AAAA;;AAPF;;AAAA;;;AAAA;;AAAA;AAAA;AAAA;",
   "op_pc_offset": 0,
